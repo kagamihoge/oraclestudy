@@ -1,0 +1,272 @@
+
+TKPROF: Release 11.2.0.2.0 - Development on 木 1月 23 17:56:39 2014
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Trace file: XE_ora_3294.trc
+Sort options: default
+
+********************************************************************************
+count    = number of times OCI procedure was executed
+cpu      = cpu time in seconds executing 
+elapsed  = elapsed time in seconds executing
+disk     = number of physical reads of buffers from disk
+query    = number of buffers gotten for consistent read
+current  = number of buffers gotten in current mode (usually for update)
+rows     = number of rows processed by the fetch or execute call
+********************************************************************************
+
+SQL ID: 18xmdu9v0v9hm Plan Hash: 0
+
+BEGIN SYS.DBMS_MONITOR.SESSION_TRACE_ENABLE(BINDS=>TRUE, WAITS=>TRUE); END;
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      3      0.00       0.00          0          0          0           3
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        4      0.00       0.00          0          0          0           3
+
+Misses in library cache during parse: 0
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 48  (KAGAMIHOGE)
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       3        0.00          0.00
+  SQL*Net message from client                     3        0.61          1.80
+********************************************************************************
+
+select child_number from v$sql 
+ where sql_id = :1   
+ order by child_number
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse       24      0.00       0.00          0          0          0           0
+Execute     24      0.00       0.00          0          0          0           0
+Fetch       24      0.00       0.00          0          0          0          16
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       72      0.00       0.00          0          0          0          16
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 48  (KAGAMIHOGE)
+Number of plan statistics captured: 1
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         0          0          0  SORT ORDER BY (cr=0 pr=0 pw=0 time=56 us cost=1 size=34 card=1)
+         0          0          0   FIXED TABLE FIXED INDEX X$KGLCURSOR_CHILD (ind:2) (cr=0 pr=0 pw=0 time=23 us cost=0 size=34 card=1)
+
+
+Rows     Execution Plan
+-------  ---------------------------------------------------
+      0  SELECT STATEMENT   MODE: ALL_ROWS
+      0   SORT (ORDER BY)
+      0    FIXED TABLE (FIXED INDEX) OF 'X$KGLCURSOR_CHILD (ind:2)' 
+               (TABLE (FIXED))
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                      24        0.00          0.00
+  SQL*Net message from client                    24        7.08         35.60
+********************************************************************************
+
+SQL ID: 23qwabpczfjxg Plan Hash: 3518767731
+
+SELECT COUNT(*) 
+FROM
+ million_rows_table
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        3      0.00       0.00          0          0          0           0
+Execute      3      0.00       0.00          0          0          0           0
+Fetch        3      0.60       0.60       1883       5670          0           3
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        9      0.60       0.60       1883       5670          0           3
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 48  (KAGAMIHOGE)
+Number of plan statistics captured: 3
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  SORT AGGREGATE (cr=1890 pr=628 pw=0 time=201747 us)
+   1000000    1000000    1000000   INDEX FAST FULL SCAN MILLION_ROWS_TABLE_PK (cr=1890 pr=628 pw=0 time=1277065 us cost=522 size=0 card=1000000)(object id 21359)
+
+
+Rows     Execution Plan
+-------  ---------------------------------------------------
+      0  SELECT STATEMENT   MODE: ALL_ROWS
+      1   SORT (AGGREGATE)
+1000000    INDEX   MODE: ANALYZED (FAST FULL SCAN) OF 
+               'MILLION_ROWS_TABLE_PK' (INDEX (UNIQUE))
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                       3        0.00          0.00
+  SQL*Net message from client                     3        0.04          0.06
+  Disk file operations I/O                        1        0.00          0.00
+  db file sequential read                         1        0.00          0.00
+  db file scattered read                         86        0.00          0.00
+********************************************************************************
+
+SQL ID: 35212uv20axrp Plan Hash: 0
+
+BEGIN SYS.DBMS_MONITOR.SESSION_TRACE_DISABLE(); END;
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           2
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        4      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 0
+Optimizer mode: ALL_ROWS
+Parsing user id: 48  (KAGAMIHOGE)
+********************************************************************************
+
+SQL ID: bvjv8ashz9tb1 Plan Hash: 0
+
+ALTER SYSTEM FLUSH BUFFER_CACHE
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.40          0          0          0           0
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        2      0.00       0.40          0          0          0           0
+
+Misses in library cache during parse: 0
+Parsing user id: 48  (KAGAMIHOGE)
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  rdbms ipc reply                                 2        0.37          0.37
+  SQL*Net message to client                       1        0.00          0.00
+  SQL*Net message from client                     1        0.00          0.00
+********************************************************************************
+
+SQL ID: bfhu193kfrz51 Plan Hash: 1047193584
+
+SELECT * 
+FROM
+ million_rows_table WHERE column_pk_int < :ID
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch       40      0.00       0.00          9         93          0        1999
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       42      0.00       0.00          9         93          0        1999
+
+Misses in library cache during parse: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 48  (KAGAMIHOGE)
+Number of plan statistics captured: 1
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+      1999       1999       1999  TABLE ACCESS BY INDEX ROWID MILLION_ROWS_TABLE (cr=93 pr=9 pw=0 time=10067 us cost=15 size=51974 card=1999)
+      1999       1999       1999   INDEX RANGE SCAN MILLION_ROWS_TABLE_PK (cr=45 pr=0 pw=0 time=3800 us cost=6 size=0 card=1999)(object id 21359)
+
+
+Rows     Execution Plan
+-------  ---------------------------------------------------
+      0  SELECT STATEMENT   MODE: ALL_ROWS
+   1999   TABLE ACCESS   MODE: ANALYZED (BY INDEX ROWID) OF 
+              'MILLION_ROWS_TABLE' (TABLE)
+   1999    INDEX   MODE: ANALYZED (RANGE SCAN) OF 'MILLION_ROWS_TABLE_PK' 
+               (INDEX (UNIQUE))
+
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                      40        0.00          0.00
+  db file sequential read                         9        0.00          0.00
+  SQL*Net message from client                    40        2.33          2.41
+
+
+
+********************************************************************************
+
+OVERALL TOTALS FOR ALL NON-RECURSIVE STATEMENTS
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse       32      0.00       0.00          0          0          0           0
+Execute     34      0.00       0.41          0          0          0           5
+Fetch       67      0.60       0.61       1892       5763          0        2018
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total      133      0.61       1.03       1892       5763          0        2023
+
+Misses in library cache during parse: 2
+Misses in library cache during execute: 1
+
+Elapsed times include waiting on following events:
+  Event waited on                             Times   Max. Wait  Total Waited
+  ----------------------------------------   Waited  ----------  ------------
+  SQL*Net message to client                      73        0.00          0.00
+  SQL*Net message from client                    73        7.08         40.91
+  rdbms ipc reply                                 2        0.37          0.37
+  Disk file operations I/O                        1        0.00          0.00
+  db file sequential read                        10        0.00          0.00
+  db file scattered read                         86        0.00          0.00
+
+
+OVERALL TOTALS FOR ALL RECURSIVE STATEMENTS
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        0      0.00       0.00          0          0          0           0
+Execute      0      0.00       0.00          0          0          0           0
+Fetch        0      0.00       0.00          0          0          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        0      0.00       0.00          0          0          0           0
+
+Misses in library cache during parse: 0
+
+   10  user  SQL statements in session.
+    0  internal SQL statements in session.
+   10  SQL statements in session.
+    3  statements EXPLAINed in this session.
+********************************************************************************
+Trace file: XE_ora_3294.trc
+Trace file compatibility: 11.1.0.7
+Sort options: default
+
+       1  session in tracefile.
+      10  user  SQL statements in trace file.
+       0  internal SQL statements in trace file.
+      10  SQL statements in trace file.
+       6  unique SQL statements in trace file.
+       3  SQL statements EXPLAINed using schema:
+           KAGAMIHOGE.prof$plan_table
+             Default table was used.
+             Table was created.
+             Table was dropped.
+     683  lines in trace file.
+      68  elapsed seconds in trace file.
+
+
