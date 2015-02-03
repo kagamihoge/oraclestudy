@@ -3,6 +3,12 @@
   <groupId>kagamihoge.blogneta</groupId>
   <artifactId>oraclestudy</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.apache.commons</groupId>
